@@ -18,6 +18,9 @@ repositories {
 	mavenCentral()
 	maven { url 'https://repo.spring.io/milestone' }
 	maven { url 'https://repo.spring.io/snapshot' }
+	flatDir {
+		dirs 'library'
+	}
 }
 
 dependencies {
@@ -27,6 +30,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	implementation files('library/Dota2ApiWrapper-1.0.jar')
 }
 
 test {
