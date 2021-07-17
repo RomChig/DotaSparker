@@ -1,17 +1,10 @@
 package dota.buff.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-@Setter
-@Getter
-@ToString
+@Data
+@AllArgsConstructor
 public class Key {
     private String apiKey;
-
-    public Key(String apiKey) {
-        this.apiKey = apiKey;
-    }
-
 }
