@@ -1,16 +1,15 @@
 package dota.buff.model;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
 @Data
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
-    private String login;
-    private String password;
-    private Key key;
-
-    public void setKey(String apiKey) {
-        this.key.setApiKey(apiKey);
-    }
+    String login;
+    String password;
+    Key key;
 }
