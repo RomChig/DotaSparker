@@ -11,5 +11,5 @@ import lombok.experimental.FieldDefaults;
 public class User {
     String login;
     String password;
-    Key key;
+    long steamId;
 }
