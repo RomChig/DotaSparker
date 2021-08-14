@@ -1,5 +1,6 @@
 package dota.buff.model;
 
+import dota.buff.model.enums.Side;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +16,7 @@ public class MatchDTO {
     String gameMode;
     List<PlayerDTO> playerList;
     List<HeroDTO> heroList;
-    boolean radiantWinner;
+    Side side;
     long duration;
+
 }

@@ -7,30 +7,35 @@ import com.github.wannesvr.core.request.econ.HeroesRequest;
 
 import dota.buff.model.HeroDTO;
 import dota.buff.service.HeroService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Service
 public class HeroServiceImpl implements HeroService {
 
-    private static final String API_KEY = "B946D0A6B0726327F1C9D44095CD11C0";
-    private static final Dota2ApiClient client = new Dota2ApiClient(API_KEY);
-    private final List<HeroDTO> heroList = getAllHeroes();
+    private final Dota2ApiClient client;
+    private final List<HeroDTO> heroList;
+
+    @Autowired
+    public HeroServiceImpl(Dota2ApiClient client) {
+        this.client = client;
+        this.heroList = initHeroList();
+    }
 
     @Override
     public HeroDTO getHeroById(int heroId) {
-        HeroDTO heroDTO = null;
-        for (HeroDTO hero : heroList) {
-            if (hero.getId() == heroId) {
-                heroDTO = hero;
-            }
-        }
-        return heroDTO;
+        return heroList.stream().filter(hero -> hero.getId() == heroId).findFirst().orElse(null);
     }
 
     @Override
     public List<HeroDTO> getAllHeroes() {
+        return heroList;
+    }
+
+    private List<HeroDTO> initHeroList(){
         List<HeroDTO> list = new ArrayList<>();
         HeroList heroList = client.send(getHeroesRequest());
         for (Hero hero : heroList.getHeroes()) {

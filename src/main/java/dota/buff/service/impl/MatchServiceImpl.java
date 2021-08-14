@@ -7,17 +7,26 @@ import com.github.wannesvr.core.request.match.MatchDetailRequest;
 import dota.buff.model.HeroDTO;
 import dota.buff.model.MatchDTO;
 import dota.buff.model.PlayerDTO;
+import dota.buff.model.enums.Side;
 import dota.buff.service.HeroService;
 import dota.buff.service.MatchService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class MatchServiceImpl implements MatchService {
 
-    private static final String API_KEY = "B946D0A6B0726327F1C9D44095CD11C0";
-    private static final Dota2ApiClient client = new Dota2ApiClient(API_KEY);
-    private static final HeroService heroService = new HeroServiceImpl();
+    private final Dota2ApiClient client;
+    private final HeroService heroService;
+
+    @Autowired
+    public MatchServiceImpl(Dota2ApiClient client, HeroService heroService) {
+        this.client = client;
+        this.heroService = heroService;
+    }
 
     @Override
     public MatchDTO getMatchById(long matchId) {
@@ -25,9 +34,9 @@ public class MatchServiceImpl implements MatchService {
         return new MatchDTO(
                 matchDetail.getMatchId(),
                 matchDetail.getGameMode().toString(),
-                convertAllMatchPlayers(matchDetail),
-                convertAllMatchHeroes(convertAllMatchPlayers(matchDetail)),
-                matchDetail.isRadiantWin(),
+                convertAllMatchPlayers(matchDetail.getPlayers()),
+                convertAllMatchHeroes(convertAllMatchPlayers(matchDetail.getPlayers())),
+                getWinner(matchDetail),
                 matchDetail.getDuration());
     }
 
@@ -42,33 +51,24 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public void getWinner(long matchId) {
-        if (getMatchById(matchId).isRadiantWinner()) {
-            System.out.println("Radiant is winner");
-        } else {
-            System.out.println("Dire is winner");
-        }
+    public Side getWinner(long matchId) {
+        return getMatchById(matchId).getSide();
     }
 
-    private MatchDetailRequest getMatchDetailRequest(long matchId) {
-        return new MatchDetailRequest.Builder(matchId).build();
+    private Side getWinner(MatchDetail matchDetail) {
+        return matchDetail.isRadiantWin() ? Side.RADIANT : Side.DIRE;
     }
 
-    private List<PlayerDTO> convertAllMatchPlayers(MatchDetail matchDetail) {
+    private List<PlayerDTO> convertAllMatchPlayers(List<MatchDetailPlayer> playerList) {
         List<PlayerDTO> list = new ArrayList<>();
-        if (matchDetail != null) {
-            for (int i = 0; i < matchDetail.getPlayers().size(); i++) {
-                MatchDetailPlayer detail = matchDetail.getPlayers().get(i);
-                PlayerDTO player = new PlayerDTO(
-                        detail.getAccountId(),
-                        heroService.getHeroById(detail.getHeroId()),
-                        detail.getKills(),
-                        detail.getDeaths(),
-                        detail.getAssists(),
-                        detail.getGoldSpent()
-                );
-                list.add(player);
-            }
+        for (MatchDetailPlayer detail : playerList) {
+            list.add(new PlayerDTO(
+                    detail.getAccountId(),
+                    heroService.getHeroById(detail.getHeroId()),
+                    detail.getKills(),
+                    detail.getDeaths(),
+                    detail.getAssists(),
+                    detail.getGoldSpent()));
         }
         return list;
     }
@@ -76,10 +76,13 @@ public class MatchServiceImpl implements MatchService {
     private List<HeroDTO> convertAllMatchHeroes(List<PlayerDTO> playerList) {
         List<HeroDTO> heroList = new ArrayList<>();
         for (PlayerDTO player : playerList) {
-            HeroDTO hero = heroService.getHeroById(player.getHeroDTO().getId());
-            heroList.add(hero);
+            heroList.add(heroService.getHeroById(player.getHeroDTO().getId()));
         }
         return heroList;
+    }
+
+    private MatchDetailRequest getMatchDetailRequest(long matchId) {
+        return new MatchDetailRequest.Builder(matchId).build();
     }
 }
 
