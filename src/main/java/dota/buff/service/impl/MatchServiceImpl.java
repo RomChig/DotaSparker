@@ -22,13 +22,14 @@ public class MatchServiceImpl implements MatchService {
 
     private final Dota2ApiClient client;
     private final HeroService heroService;
-    private final ConvertService convertService = new ConvertServiceImpl();
+    private final ConvertService convertService;
 
 
     @Autowired
-    public MatchServiceImpl(Dota2ApiClient client, HeroService heroService) {
+    public MatchServiceImpl(Dota2ApiClient client, HeroService heroService, ConvertService convertService) {
         this.client = client;
         this.heroService = heroService;
+        this.convertService = convertService;
     }
 
     @Override
@@ -60,7 +61,7 @@ public class MatchServiceImpl implements MatchService {
         List<HeroDTO> heroList = new ArrayList<>();//-
         MatchDTO matchDTO = getMatchById(matchId);//-
         for (PlayerDTO player : matchDTO.getPlayerList()){//-
-            heroList.add(heroService.getHeroById(player.getHeroId()));//-
+            heroList.add(player.getHeroDTO());//-
         }
         return heroList;//-
     }

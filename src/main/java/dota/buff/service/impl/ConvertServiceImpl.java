@@ -8,6 +8,8 @@ import dota.buff.model.*;
 import dota.buff.model.enums.Side;
 import dota.buff.service.ConvertService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,15 +18,25 @@ import java.util.List;
 @Service
 public class ConvertServiceImpl implements ConvertService {
 
+    private final List<HeroDTO> heroList;
+
+    @Autowired
+    public ConvertServiceImpl(@Lazy List<HeroDTO> heroList) {
+        this.heroList = heroList;
+    }
+
     @Override
     public PlayerDTO convertPlayer(MatchDetailPlayer player) {
         return new PlayerDTO(
                 player.getAccountId(),
-                player.getHeroId(),
+                heroList.stream()
+                        .filter(heroDTO -> player.getHeroId() == heroDTO.getId())
+                        .findFirst().get(),
                 player.getKills(),
                 player.getDeaths(),
                 player.getAssists(),
-                player.getGoldSpent());
+                player.getGoldSpent()
+        );
     }
 
     @Override

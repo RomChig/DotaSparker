@@ -18,38 +18,38 @@ import java.util.List;
 public class HeroServiceImpl implements HeroService {
 
     private final Dota2ApiClient client;
-    private final List<HeroDTO> heroList;
+    private final List<HeroDTO> allHeroes;
     private final ConvertService convertService;
 
     @Autowired
-    public HeroServiceImpl(Dota2ApiClient client, ConvertService convertService) {
+    public HeroServiceImpl(Dota2ApiClient client, ConvertService convertService, List<HeroDTO> allHeroes) {
         this.client = client;
         this.convertService = convertService;
-        this.heroList = initHeroList();
+        this.allHeroes = allHeroes;
     }
 
     @Override
     public HeroDTO getHeroById(int heroId) {
-        return heroList.stream().filter(hero -> hero.getId() == heroId).findFirst().orElse(null);
+        return allHeroes.stream().filter(hero -> hero.getId() == heroId).findFirst().orElse(null);
     }
 
     @Override
     public List<HeroDTO> getAllHeroes() {
-        return heroList;
+        return allHeroes;
     }
 
-    private List<HeroDTO> initHeroList(){
-//        List<HeroDTO> list = new ArrayList<>();
-        HeroList heroList = client.send(new HeroesRequest.Builder().build());
-        if(heroList.getHeroes().size()==0){
-            throw new IllegalArgumentException("HeroList is null");
-        }
-//        for (Hero hero : heroList.getHeroes()) {
-//            list.add(new HeroDTO(hero.getId(), hero.getName(), hero.getLocalizedName()));
+//    private List<HeroDTO> initHeroList(){
+////        List<HeroDTO> list = new ArrayList<>();
+//        HeroList heroList = client.send(new HeroesRequest.Builder().build());
+//        if(heroList.getHeroes().size()==0){
+//            throw new IllegalArgumentException("HeroList is null");
 //        }
-//        return list;
-        //можно и в одну строчку записать, но пока пусть будет две, чтобы не путаться
-        return convertService.convertHeroList(heroList.getHeroes());
-    }
+////        for (Hero hero : heroList.getHeroes()) {
+////            list.add(new HeroDTO(hero.getId(), hero.getName(), hero.getLocalizedName()));
+////        }
+////        return list;
+//        //можно и в одну строчку записать, но пока пусть будет две, чтобы не путаться
+//        return convertService.convertHeroList(heroList.getHeroes());
+//    }
 
 }
