@@ -10,9 +10,11 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PlayerDTO {
     long accountId;
-    HeroDTO heroDTO;
+    //    HeroDTO heroDTO;
+    int heroId;//-
     int kills;
     int deaths;
     int assists;
     int gold;
+
 }

@@ -34,15 +34,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<MatchDTO> getMatches(long steamId, int matches) {
         List<MatchDTO> matchList = new ArrayList<>();
-        MatchHistory matchHistory = client.send(getMatchHistoryRequest(steamId, matches));
+        MatchHistory matchHistory = client.send(new MatchHistoryRequest.Builder()
+                .accountId(steamId)
+                .matchesRequested(matches)
+                .build()
+        );
+        if(matchHistory.getTotalResults()==0){
+            throw new IllegalArgumentException("Matches is not found");
+        }
         for (MatchHistoryDetail matchDetail : matchHistory.getMatches()) {
             matchList.add(matchService.getMatchById(matchDetail.getMatchId()));
         }
         return matchList;
-    }
-
-    private MatchHistoryRequest getMatchHistoryRequest(long steamId, int matches) {
-        return new MatchHistoryRequest.Builder().accountId(steamId).matchesRequested(matches).build();
     }
 
 

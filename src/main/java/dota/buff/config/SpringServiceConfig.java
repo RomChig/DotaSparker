@@ -9,10 +9,10 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @ComponentScan("dota.buff.service")
-@PropertySource("classpath:dota.yml")
+@PropertySource("classpath:dota_config.yml")
 public class SpringServiceConfig {
 
-    @Value("${key}")
+    @Value("${dota.api_key}")
     private String API_KEY;
 
     @Bean

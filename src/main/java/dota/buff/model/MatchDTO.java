@@ -15,7 +15,7 @@ public class MatchDTO {
     long matchId;
     String gameMode;
     List<PlayerDTO> playerList;
-    List<HeroDTO> heroList;
+//    List<HeroDTO> heroList;
     Side side;
     long duration;
 

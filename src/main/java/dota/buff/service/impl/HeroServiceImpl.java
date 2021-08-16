@@ -6,6 +6,7 @@ import com.github.wannesvr.core.model.hero.HeroList;
 import com.github.wannesvr.core.request.econ.HeroesRequest;
 
 import dota.buff.model.HeroDTO;
+import dota.buff.service.ConvertService;
 import dota.buff.service.HeroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,10 +19,12 @@ public class HeroServiceImpl implements HeroService {
 
     private final Dota2ApiClient client;
     private final List<HeroDTO> heroList;
+    private final ConvertService convertService;
 
     @Autowired
-    public HeroServiceImpl(Dota2ApiClient client) {
+    public HeroServiceImpl(Dota2ApiClient client, ConvertService convertService) {
         this.client = client;
+        this.convertService = convertService;
         this.heroList = initHeroList();
     }
 
@@ -36,15 +39,17 @@ public class HeroServiceImpl implements HeroService {
     }
 
     private List<HeroDTO> initHeroList(){
-        List<HeroDTO> list = new ArrayList<>();
-        HeroList heroList = client.send(getHeroesRequest());
-        for (Hero hero : heroList.getHeroes()) {
-            list.add(new HeroDTO(hero.getId(), hero.getName(), hero.getLocalizedName()));
+//        List<HeroDTO> list = new ArrayList<>();
+        HeroList heroList = client.send(new HeroesRequest.Builder().build());
+        if(heroList.getHeroes().size()==0){
+            throw new IllegalArgumentException("HeroList is null");
         }
-        return list;
+//        for (Hero hero : heroList.getHeroes()) {
+//            list.add(new HeroDTO(hero.getId(), hero.getName(), hero.getLocalizedName()));
+//        }
+//        return list;
+        //можно и в одну строчку записать, но пока пусть будет две, чтобы не путаться
+        return convertService.convertHeroList(heroList.getHeroes());
     }
 
-    private HeroesRequest getHeroesRequest() {
-        return new HeroesRequest.Builder().build();
-    }
 }
