@@ -9,14 +9,14 @@ import java.util.List;
 
 public interface ConvertService {
 
-    public PlayerDTO convertPlayer(MatchDetailPlayer player);
+    PlayerDTO convertPlayer(MatchDetailPlayer player);
 
-    public HeroDTO convertHero(Hero hero);
+    HeroDTO convertHero(Hero hero);
 
-    public MatchDTO convertMatch(MatchDetail match);
+    MatchDTO convertMatch(MatchDetail match);
 
-    public List<PlayerDTO> convertPlayerList(List<MatchDetailPlayer> playerList);
+    List<PlayerDTO> convertPlayerList(List<MatchDetailPlayer> playerList);
 
-    public List<HeroDTO> convertHeroList(List<Hero> heroList);
+    List<HeroDTO> convertHeroList(List<Hero> heroList);
 
 }

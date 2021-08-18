@@ -11,7 +11,6 @@ import lombok.experimental.FieldDefaults;
 public class PlayerDTO {
     long accountId;
     HeroDTO heroDTO;
-//    int heroId;//-
     int kills;
     int deaths;
     int assists;

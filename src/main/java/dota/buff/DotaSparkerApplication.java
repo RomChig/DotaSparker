@@ -27,16 +27,10 @@ public class DotaSparkerApplication {
         MatchServiceImpl matchService = context.getBean("matchServiceImpl", MatchServiceImpl.class);
         UserServiceImpl userService = context.getBean("userServiceImpl", UserServiceImpl.class);
         HeroServiceImpl heroService = context.getBean("heroServiceImpl", HeroServiceImpl.class);
-//        System.out.println(heroService.getHeroById(30));
-//        System.out.println(matchService.getMatchById(MATCH_ID));
-        List<PlayerDTO> list = matchService.getMatchById(MATCH_ID).getPlayerList();
-        System.out.println(heroService.getHeroById(list.get(3).getHeroId()));
-
-        System.out.println(matchService.getAllMatchHeroes(MATCH_ID));
-//        System.out.println(userService.getMatches(123L, 3));
+        System.out.println(heroService.getHeroById(15));
+        System.out.println(matchService.getMatchById(MATCH_ID));
+        System.out.println(matchService.getAllMatchHeroes(matchService.getMatchById(MATCH_ID)));
 
     }
-
-
 
 }

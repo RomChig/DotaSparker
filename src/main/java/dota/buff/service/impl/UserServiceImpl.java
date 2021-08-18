@@ -8,6 +8,7 @@ import com.github.wannesvr.core.request.match.MatchHistoryRequest;
 import dota.buff.model.MatchDTO;
 import dota.buff.service.MatchService;
 import dota.buff.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
                 .matchesRequested(matches)
                 .build()
         );
-        if(matchHistory.getTotalResults()==0){
+        if (matchHistory.getTotalResults() == 0) {
             throw new IllegalArgumentException("Matches is not found");
         }
         for (MatchHistoryDetail matchDetail : matchHistory.getMatches()) {

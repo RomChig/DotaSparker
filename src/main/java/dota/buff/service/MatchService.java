@@ -8,12 +8,13 @@ import dota.buff.model.enums.Side;
 import java.util.List;
 
 public interface MatchService {
+
     MatchDTO getMatchById(long matchId);
 
-    List<PlayerDTO> getAllMatchPlayers(long matchId);
+    List<PlayerDTO> getAllMatchPlayers(MatchDTO matchDTO);
 
-    List<HeroDTO> getAllMatchHeroes(long matchId);
+    List<HeroDTO> getAllMatchHeroes(MatchDTO match);
 
-    Side getWinner(long matchId);
+    Side getWinner(MatchDTO match);
 
 }
