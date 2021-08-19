@@ -2,7 +2,6 @@ package dota.buff.service.impl;
 
 import com.github.wannesvr.core.Dota2ApiClient;
 import com.github.wannesvr.core.model.match.MatchHistory;
-import com.github.wannesvr.core.model.match.MatchHistoryDetail;
 import com.github.wannesvr.core.request.match.MatchHistoryRequest;
 
 import dota.buff.model.MatchDTO;
@@ -12,8 +11,8 @@ import dota.buff.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,7 +33,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<MatchDTO> getMatches(long steamId, int matches) {
-        List<MatchDTO> matchList = new ArrayList<>();
         MatchHistory matchHistory = client.send(new MatchHistoryRequest.Builder()
                 .accountId(steamId)
                 .matchesRequested(matches)
@@ -43,10 +41,10 @@ public class UserServiceImpl implements UserService {
         if (matchHistory.getTotalResults() == 0) {
             throw new IllegalArgumentException("Matches is not found");
         }
-        for (MatchHistoryDetail matchDetail : matchHistory.getMatches()) {
-            matchList.add(matchService.getMatchById(matchDetail.getMatchId()));
-        }
-        return matchList;
+        return matchHistory.getMatches()
+                .stream()
+                .map(MatchHistoryDetail -> matchService.getMatchById(MatchHistoryDetail.getMatchId()))
+                .collect(Collectors.toList());
     }
 
 

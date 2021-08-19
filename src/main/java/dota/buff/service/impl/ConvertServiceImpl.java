@@ -11,8 +11,8 @@ import dota.buff.service.ConvertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ConvertServiceImpl implements ConvertService {
@@ -55,20 +55,12 @@ public class ConvertServiceImpl implements ConvertService {
 
     @Override
     public List<PlayerDTO> convertPlayerList(List<MatchDetailPlayer> playerList) {
-        List<PlayerDTO> list = new ArrayList<>();
-        for (MatchDetailPlayer detail : playerList) {
-            list.add(convertPlayer(detail));
-        }
-        return list;
+        return playerList.stream().map(this::convertPlayer).collect(Collectors.toList());
     }
 
     @Override
     public List<HeroDTO> convertHeroList(List<Hero> heroList) {
-        List<HeroDTO> heroDTOList = new ArrayList<>();
-        for (Hero hero : heroList) {
-            heroDTOList.add(convertHero(hero));
-        }
-        return heroDTOList;
+        return heroList.stream().map(this::convertHero).collect(Collectors.toList());
     }
 
 }

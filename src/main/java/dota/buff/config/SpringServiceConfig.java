@@ -29,7 +29,9 @@ public class SpringServiceConfig {
     @Bean
     public List<Hero> allHeroes() {
         HeroList heroList = dota2ApiClient().send(new HeroesRequest.Builder().build());
+        if(heroList == null){
+            throw new IllegalArgumentException("heroList in null");
+        }
         return heroList.getHeroes();
-
     }
 }

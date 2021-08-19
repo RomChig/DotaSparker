@@ -13,8 +13,8 @@ import dota.buff.service.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MatchServiceImpl implements MatchService {
@@ -33,36 +33,23 @@ public class MatchServiceImpl implements MatchService {
     public MatchDTO getMatchById(long matchId) {
         MatchDetail matchDetail = client.send(new MatchDetailRequest.Builder(matchId).build());
         if (matchDetail.getMatchId() == 0) {
-            throw new IllegalArgumentException("Match is null");
+            throw new IllegalArgumentException("Match does not exist");
         }
         return convertService.convertMatch(matchDetail);
     }
 
     @Override
     public List<PlayerDTO> getAllMatchPlayers(MatchDTO match) {
-        if (match.getMatchId() == 0) {
-            throw new IllegalArgumentException("Match does not exist");
-        }
         return match.getPlayerList();
     }
 
     @Override
     public List<HeroDTO> getAllMatchHeroes(MatchDTO match) {
-        if (match.getMatchId() == 0) {
-            throw new IllegalArgumentException("Match does not exist");
-        }
-        List<HeroDTO> heroList = new ArrayList<>();
-        for (PlayerDTO player : getAllMatchPlayers(match)) {
-            heroList.add(player.getHeroDTO());
-        }
-        return heroList;
+        return getAllMatchPlayers(match).stream().map(PlayerDTO::getHeroDTO).collect(Collectors.toList());
     }
 
     @Override
     public Side getWinner(MatchDTO match) {
-        if (match.getMatchId() == 0) {
-            throw new IllegalArgumentException("Match does not exist");
-        }
         return match.getSide();
     }
 

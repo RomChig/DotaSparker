@@ -23,17 +23,11 @@ public class HeroServiceImpl implements HeroService {
 
     @Override
     public HeroDTO getHeroById(int heroId) {
-        if(heroList.size()==0){
-            throw new IllegalArgumentException("Hero list is empty");
-        }
         return heroList.stream().filter(hero -> hero.getId() == heroId).findFirst().orElse(null);
     }
 
     @Override
     public List<HeroDTO> getAllHeroes() {
-        if(heroList.size()==0){
-            throw new IllegalArgumentException("Hero list is empty");
-        }
         return heroList;
     }
 
