@@ -30,10 +30,8 @@ public class SpringServiceConfig {
 
     @Bean
     public List<Hero> allHeroes() throws DotaSparkerException {
-        Optional<HeroList> heroListOpt = Optional.ofNullable(
-                dota2ApiClient().send(new HeroesRequest.Builder().build())
-        );
-        return heroListOpt.orElseThrow(
+        HeroList heroList = dota2ApiClient().send(new HeroesRequest.Builder().build());
+        return Optional.ofNullable(heroList).orElseThrow(
                 () -> new DotaSparkerException("List of heroes is empty")
         ).getHeroes();
     }
