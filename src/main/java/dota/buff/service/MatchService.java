@@ -1,5 +1,6 @@
 package dota.buff.service;
 
+import dota.buff.exception.DotaSparkerException;
 import dota.buff.model.HeroDTO;
 import dota.buff.model.MatchDTO;
 import dota.buff.model.PlayerDTO;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public interface MatchService {
 
-    MatchDTO getMatchById(long matchId);
+    MatchDTO getMatchById(long matchId) throws DotaSparkerException;
 
     List<PlayerDTO> getAllMatchPlayers(MatchDTO matchDTO);
 

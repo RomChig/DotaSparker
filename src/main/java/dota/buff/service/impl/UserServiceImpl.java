@@ -4,6 +4,7 @@ import com.github.wannesvr.core.Dota2ApiClient;
 import com.github.wannesvr.core.model.match.MatchHistory;
 import com.github.wannesvr.core.request.match.MatchHistoryRequest;
 
+import dota.buff.exception.DotaSparkerException;
 import dota.buff.model.MatchDTO;
 import dota.buff.service.MatchService;
 import dota.buff.service.UserService;
@@ -32,14 +33,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<MatchDTO> getMatches(long steamId, int matches) {
+    public List<MatchDTO> getMatches(long steamId, int matches) throws DotaSparkerException {
         MatchHistory matchHistory = client.send(new MatchHistoryRequest.Builder()
                 .accountId(steamId)
                 .matchesRequested(matches)
                 .build()
         );
         if (matchHistory.getTotalResults() == 0) {
-            throw new IllegalArgumentException("Matches is not found");
+            throw new DotaSparkerException("Matches were not found");
         }
         return matchHistory.getMatches()
                 .stream()
