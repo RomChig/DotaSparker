@@ -5,6 +5,8 @@ import com.github.wannesvr.core.model.hero.Hero;
 import com.github.wannesvr.core.model.hero.HeroList;
 import com.github.wannesvr.core.request.econ.HeroesRequest;
 
+import dota.buff.exception.DotaSparkerException;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 import java.util.List;
+import java.util.Optional;
 
 @Configuration
 @ComponentScan("dota.buff.service")
@@ -27,11 +30,10 @@ public class SpringServiceConfig {
     }
 
     @Bean
-    public List<Hero> allHeroes() {
+    public List<Hero> allHeroes() throws DotaSparkerException {
         HeroList heroList = dota2ApiClient().send(new HeroesRequest.Builder().build());
-        if(heroList == null){
-            throw new IllegalArgumentException("heroList in null");
-        }
-        return heroList.getHeroes();
+        return Optional.ofNullable(heroList).orElseThrow(
+                () -> new DotaSparkerException("List of heroes is empty")
+        ).getHeroes();
     }
 }

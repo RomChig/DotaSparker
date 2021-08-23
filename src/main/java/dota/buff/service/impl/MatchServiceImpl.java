@@ -1,15 +1,17 @@
 package dota.buff.service.impl;
 
 import com.github.wannesvr.core.Dota2ApiClient;
-import com.github.wannesvr.core.model.match.*;
+import com.github.wannesvr.core.model.match.MatchDetail;
 import com.github.wannesvr.core.request.match.MatchDetailRequest;
 
+import dota.buff.exception.DotaSparkerException;
 import dota.buff.model.HeroDTO;
 import dota.buff.model.MatchDTO;
 import dota.buff.model.PlayerDTO;
 import dota.buff.model.enums.Side;
 import dota.buff.service.ConvertService;
 import dota.buff.service.MatchService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,10 +32,12 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public MatchDTO getMatchById(long matchId) {
+    public MatchDTO getMatchById(long matchId) throws DotaSparkerException {
         MatchDetail matchDetail = client.send(new MatchDetailRequest.Builder(matchId).build());
         if (matchDetail.getMatchId() == 0) {
-            throw new IllegalArgumentException("Match does not exist");
+            throw new DotaSparkerException(
+                    String.format("Match was not found with matchId %d", matchId)
+            );
         }
         return convertService.convertMatch(matchDetail);
     }
