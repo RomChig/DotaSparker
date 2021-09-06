@@ -2,29 +2,29 @@ package dota.buff.controller;
 
 import dota.buff.model.HeroDTO;
 import dota.buff.service.HeroService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/hero")
+@RequiredArgsConstructor
 public class HeroController {
+
     private final HeroService heroService;
 
-    @Autowired
-    public HeroController(HeroService heroService) {
-        this.heroService = heroService;
-    }
-
     @GetMapping("/{id}")
-    public HeroDTO getHeroById(@PathVariable Integer id){
-        return heroService.getHeroById(id);
+    public ResponseEntity<HeroDTO> getHeroById(@PathVariable Integer id) {
+        return new ResponseEntity<>(heroService.getHeroById(id), HttpStatus.OK);
     }
 
     @GetMapping("/all")
-    public List<HeroDTO> getAllHeroes(){
-        return heroService.getAllHeroes();
+    public ResponseEntity<List<HeroDTO>> getAllHeroes() {
+        return new ResponseEntity<>(heroService.getAllHeroes(), HttpStatus.OK);
     }
-
 }
