@@ -27,4 +27,5 @@ public class HeroController {
     public ResponseEntity<List<HeroDTO>> getAllHeroes() {
         return new ResponseEntity<>(heroService.getAllHeroes(), HttpStatus.OK);
     }
+
 }

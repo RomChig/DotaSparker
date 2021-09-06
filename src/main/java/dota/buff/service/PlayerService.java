@@ -5,7 +5,7 @@ import dota.buff.model.MatchDTO;
 
 import java.util.List;
 
-public interface UserService {
+public interface PlayerService {
 
     MatchDTO getLastMatch(long steamId);
 
