@@ -9,23 +9,19 @@ import dota.buff.model.MatchDTO;
 import dota.buff.service.MatchService;
 import dota.buff.service.PlayerService;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class PlayerServiceImpl implements PlayerService {
 
     private final Dota2ApiClient client;
     private final MatchService matchService;
-
-    @Autowired
-    public PlayerServiceImpl(Dota2ApiClient client, MatchService matchService) {
-        this.client = client;
-        this.matchService = matchService;
-    }
 
     @Override
     public MatchDTO getLastMatch(long steamId) {
