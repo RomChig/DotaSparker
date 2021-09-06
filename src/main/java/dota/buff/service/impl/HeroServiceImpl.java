@@ -31,5 +31,4 @@ public class HeroServiceImpl implements HeroService {
         return heroList;
     }
 
-
 }

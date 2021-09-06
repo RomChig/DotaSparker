@@ -7,25 +7,21 @@ import com.github.wannesvr.core.request.match.MatchHistoryRequest;
 import dota.buff.exception.DotaSparkerException;
 import dota.buff.model.MatchDTO;
 import dota.buff.service.MatchService;
-import dota.buff.service.UserService;
+import dota.buff.service.PlayerService;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements UserService {
+@RequiredArgsConstructor
+public class PlayerServiceImpl implements PlayerService {
 
     private final Dota2ApiClient client;
     private final MatchService matchService;
-
-    @Autowired
-    public UserServiceImpl(Dota2ApiClient client, MatchService matchService) {
-        this.client = client;
-        this.matchService = matchService;
-    }
 
     @Override
     public MatchDTO getLastMatch(long steamId) {
@@ -47,6 +43,5 @@ public class UserServiceImpl implements UserService {
                 .map(MatchHistoryDetail -> matchService.getMatchById(MatchHistoryDetail.getMatchId()))
                 .collect(Collectors.toList());
     }
-
 
 }

@@ -12,24 +12,19 @@ import dota.buff.model.enums.Side;
 import dota.buff.service.ConvertService;
 import dota.buff.service.MatchService;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class MatchServiceImpl implements MatchService {
 
     private final Dota2ApiClient client;
     private final ConvertService convertService;
-
-
-    @Autowired
-    public MatchServiceImpl(Dota2ApiClient client, ConvertService convertService) {
-        this.client = client;
-        this.convertService = convertService;
-    }
 
     @Override
     public MatchDTO getMatchById(long matchId) throws DotaSparkerException {
