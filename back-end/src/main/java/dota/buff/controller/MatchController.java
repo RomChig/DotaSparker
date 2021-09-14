@@ -34,7 +34,7 @@ public class MatchController {
 
     @GetMapping("/players/match/{id}")
     public ResponseEntity<List<PlayerDTO>> getAllMatchPlayersById(@PathVariable Long id){
-        log.info("Request for get match players by id: {}",id);
+        log.info("Request for get match players by id: {}", id);
         return new ResponseEntity<>(matchService.getAllMatchPlayers(matchService.getMatchById(id)), HttpStatus.OK);
     }
 
