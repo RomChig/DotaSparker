@@ -2,6 +2,7 @@
 <configuration>
 
     <property name="LOGS" value="./back-end/logs" />
+    <property name="SIZE" value ="10MB"/>
 
     <appender name="Console"
               class="ch.qos.logback.core.ConsoleAppender">
@@ -27,7 +28,7 @@
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>10MB</maxFileSize>
+                <maxFileSize>${SIZE}</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
     </appender>

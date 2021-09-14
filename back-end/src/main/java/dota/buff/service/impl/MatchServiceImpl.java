@@ -33,7 +33,7 @@ public class MatchServiceImpl implements MatchService {
         log.info("Getting match by id: " + matchId);
         MatchDetail matchDetail = client.send(new MatchDetailRequest.Builder(matchId).build());
         if (matchDetail.getMatchId() == 0) {
-            log.warn("Match was not found with matchId %d");
+            log.warn("Match was not found with matchId: " + matchId);
             throw new DotaSparkerException(
                     String.format("Match was not found with matchId %d", matchId)
             );
