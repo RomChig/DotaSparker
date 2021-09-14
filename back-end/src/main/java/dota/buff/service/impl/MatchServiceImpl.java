@@ -30,10 +30,10 @@ public class MatchServiceImpl implements MatchService {
 
     @Override
     public MatchDTO getMatchById(long matchId) throws DotaSparkerException {
-        log.info("Getting match by id: " + matchId);
+        log.info("Getting match by id: {}", matchId);
         MatchDetail matchDetail = client.send(new MatchDetailRequest.Builder(matchId).build());
         if (matchDetail.getMatchId() == 0) {
-            log.warn("Match was not found with matchId: " + matchId);
+            log.warn("Match was not found with matchId: {}", matchId);
             throw new DotaSparkerException(
                     String.format("Match was not found with matchId %d", matchId)
             );
@@ -43,19 +43,19 @@ public class MatchServiceImpl implements MatchService {
 
     @Override
     public List<PlayerDTO> getAllMatchPlayers(MatchDTO match) {
-        log.info("Getting all players in match with id: " + match.getMatchId());
+        log.info("Getting all players in match: {}", match);
         return match.getPlayerList();
     }
 
     @Override
     public List<HeroDTO> getAllMatchHeroes(MatchDTO match) {
-        log.info("Getting all heroes in match with id: " + match.getMatchId());
+        log.info("Getting all heroes in match: {}", match);
         return getAllMatchPlayers(match).stream().map(PlayerDTO::getHeroDTO).collect(Collectors.toList());
     }
 
     @Override
     public Side getWinner(MatchDTO match) {
-        log.info("Getting winner in match with id: " + match.getMatchId());
+        log.info("Getting winner in match {}", match);
         return match.getSide();
     }
 

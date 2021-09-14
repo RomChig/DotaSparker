@@ -27,20 +27,20 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public MatchDTO getLastMatch(long steamId) {
-        log.info("Getting last user match with steamId: " + steamId);
+        log.info("Getting last user match with steamId: {}", steamId);
         return getMatches(steamId, 1).get(0);
     }
 
     @Override
     public List<MatchDTO> getMatches(long steamId, int matches) throws DotaSparkerException {
-        log.info("Getting " + matches + " user matches with steamId: " + steamId);
+        log.info("Getting " + matches + " user matches with steamId: {}", steamId);
         MatchHistory matchHistory = client.send(new MatchHistoryRequest.Builder()
                 .accountId(steamId)
                 .matchesRequested(matches)
                 .build()
         );
         if (matchHistory.getTotalResults() == 0) {
-            log.warn("Matches were not found with steamId:" + steamId);
+            log.warn("Matches were not found with steamId: {}", steamId);
             throw new DotaSparkerException("Matches were not found");
         }
         return matchHistory.getMatches()

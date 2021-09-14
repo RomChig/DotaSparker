@@ -22,7 +22,7 @@ public class HeroController {
 
     @GetMapping("/{id}")
     public ResponseEntity<HeroDTO> getHeroById(@PathVariable Integer id) {
-        log.info("Request for get hero by id:" + id);
+        log.info("Request for get hero by id: {}", id);
         return new ResponseEntity<>(heroService.getHeroById(id), HttpStatus.OK);
     }
 

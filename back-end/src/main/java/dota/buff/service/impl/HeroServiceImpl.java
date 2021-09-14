@@ -26,7 +26,7 @@ public class HeroServiceImpl implements HeroService {
 
     @Override
     public HeroDTO getHeroById(int heroId) {
-        log.info("Getting hero by id: " + heroId);
+        log.info("Getting hero by id: {}", heroId);
         return heroList.stream().filter(hero -> hero.getId() == heroId).findFirst().orElse(null);
     }
 

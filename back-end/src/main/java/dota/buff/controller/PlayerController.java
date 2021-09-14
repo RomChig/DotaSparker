@@ -22,13 +22,13 @@ public class PlayerController {
 
     @GetMapping("/{steamId}/matches")
     public ResponseEntity<List<MatchDTO>> getAmountPlayerMatches(@PathVariable Long steamId, @RequestParam Integer amount) {
-        log.info("Request for get" + amount +  "matches by steamId:" + steamId);
+        log.info("Request for get" + amount +  "matches by steamId: {}", steamId);
         return new ResponseEntity<>(playerService.getMatches(steamId, amount), HttpStatus.OK);
     }
 
     @GetMapping("/{steamId}")
     public ResponseEntity<MatchDTO> getLastMatch(@PathVariable Long steamId) {
-        log.info("Request for get last match by steamId:" + steamId);
+        log.info("Request for get last match by steamId: {}", steamId);
         return new ResponseEntity<>(playerService.getLastMatch(steamId), HttpStatus.OK);
     }
 
