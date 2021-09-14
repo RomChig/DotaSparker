@@ -26,7 +26,7 @@ public class PlayerController {
 
     @GetMapping("/{steamId}/matches")
     public ResponseEntity<List<MatchDTO>> getAmountPlayerMatches(@PathVariable Long steamId, @RequestParam Integer amount) {
-        log.info("Request for get" + amount +  "matches by steamId: {}", steamId);
+        log.info("Request for get {} matches by steamId: {}", amount, steamId);
         return new ResponseEntity<>(playerService.getMatches(steamId, amount), HttpStatus.OK);
     }
 

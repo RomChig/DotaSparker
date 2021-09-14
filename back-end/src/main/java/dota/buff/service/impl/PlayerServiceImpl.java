@@ -33,7 +33,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public List<MatchDTO> getMatches(long steamId, int matches) throws DotaSparkerException {
-        log.info("Getting " + matches + " user matches with steamId: {}", steamId);
+        log.info("Getting {} user matches with steamId: {}", matches, steamId);
         MatchHistory matchHistory = client.send(new MatchHistoryRequest.Builder()
                 .accountId(steamId)
                 .matchesRequested(matches)
