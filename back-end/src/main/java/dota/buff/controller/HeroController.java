@@ -1,6 +1,6 @@
 package dota.buff.controller;
 
-import dota.buff.model.HeroDTO;
+import dota.buff.model.dto.HeroDTO;
 import dota.buff.service.HeroService;
 
 import lombok.RequiredArgsConstructor;

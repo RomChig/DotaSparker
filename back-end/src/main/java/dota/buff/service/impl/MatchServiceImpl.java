@@ -5,9 +5,9 @@ import com.github.wannesvr.core.model.match.MatchDetail;
 import com.github.wannesvr.core.request.match.MatchDetailRequest;
 
 import dota.buff.exception.DotaSparkerException;
-import dota.buff.model.HeroDTO;
-import dota.buff.model.MatchDTO;
-import dota.buff.model.PlayerDTO;
+import dota.buff.model.dto.HeroDTO;
+import dota.buff.model.dto.MatchDTO;
+import dota.buff.model.dto.PlayerDTO;
 import dota.buff.model.enums.Side;
 import dota.buff.service.ConvertService;
 import dota.buff.service.MatchService;

@@ -1,4 +1,4 @@
-package dota.buff.model;
+package dota.buff.model.dto;
 
 import dota.buff.model.enums.Side;
 import lombok.AccessLevel;

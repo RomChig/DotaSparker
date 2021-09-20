@@ -4,9 +4,11 @@ import com.github.wannesvr.core.model.hero.Hero;
 import com.github.wannesvr.core.model.match.MatchDetail;
 import com.github.wannesvr.core.model.match.MatchDetailPlayer;
 
-import dota.buff.model.HeroDTO;
-import dota.buff.model.MatchDTO;
-import dota.buff.model.PlayerDTO;
+import com.github.wannesvr.core.model.match.MatchHistoryDetail;
+import dota.buff.model.dto.HeroDTO;
+import dota.buff.model.dto.MatchDTO;
+import dota.buff.model.dto.PlayerDTO;
+import dota.buff.model.SparkerMatchHistoryDetail;
 import dota.buff.model.enums.Side;
 import dota.buff.service.ConvertService;
 
@@ -65,4 +67,8 @@ public class ConvertServiceImpl implements ConvertService {
         return heroList.stream().map(this::convertHero).collect(Collectors.toList());
     }
 
+    @Override
+    public SparkerMatchHistoryDetail convertMatchHistoryDetail(MatchHistoryDetail matchHistoryDetail) {
+        return new SparkerMatchHistoryDetail(matchHistoryDetail);
+    }
 }
