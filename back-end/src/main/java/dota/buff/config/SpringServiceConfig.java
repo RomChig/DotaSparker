@@ -9,7 +9,6 @@ import dota.buff.exception.DotaSparkerException;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
@@ -17,8 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Configuration
-@ComponentScan("dota.buff.service")
-@PropertySource("classpath:dota_config.yml")
+@PropertySource("classpath:dota-config.yml")
 public class SpringServiceConfig {
 
     @Value("${dota.api_key}")
