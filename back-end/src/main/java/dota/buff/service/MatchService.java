@@ -1,9 +1,9 @@
 package dota.buff.service;
 
 import dota.buff.exception.DotaSparkerException;
-import dota.buff.model.HeroDTO;
-import dota.buff.model.MatchDTO;
-import dota.buff.model.PlayerDTO;
+import dota.buff.model.dto.HeroDTO;
+import dota.buff.model.dto.MatchDTO;
+import dota.buff.model.dto.PlayerDTO;
 import dota.buff.model.enums.Side;
 
 import java.util.List;

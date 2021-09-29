@@ -1,6 +1,7 @@
 package dota.buff.controller;
 
-import dota.buff.model.MatchDTO;
+import dota.buff.model.dto.MatchDTO;
+import dota.buff.model.SparkerMatchHistoryDetail;
 import dota.buff.service.PlayerService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class PlayerController {
     private final PlayerService playerService;
 
     @GetMapping("/{steamId}/matches")
-    public ResponseEntity<List<MatchDTO>> getAmountPlayerMatches(@PathVariable Long steamId, @RequestParam Integer amount) {
+    public ResponseEntity<List<SparkerMatchHistoryDetail>> getAmountPlayerMatches(@PathVariable Long steamId, @RequestParam Integer amount) {
         log.info("Request for get {} matches by steamId: {}", amount, steamId);
         return new ResponseEntity<>(playerService.getMatches(steamId, amount), HttpStatus.OK);
     }

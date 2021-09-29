@@ -5,7 +5,9 @@ import com.github.wannesvr.core.model.match.MatchHistory;
 import com.github.wannesvr.core.request.match.MatchHistoryRequest;
 
 import dota.buff.exception.DotaSparkerException;
-import dota.buff.model.MatchDTO;
+import dota.buff.model.dto.MatchDTO;
+import dota.buff.model.SparkerMatchHistoryDetail;
+import dota.buff.service.ConvertService;
 import dota.buff.service.MatchService;
 import dota.buff.service.PlayerService;
 
@@ -24,15 +26,18 @@ public class PlayerServiceImpl implements PlayerService {
 
     private final Dota2ApiClient client;
     private final MatchService matchService;
+    private final ConvertService convertService;
 
     @Override
     public MatchDTO getLastMatch(long steamId) {
         log.info("Getting last user match with steamId: {}", steamId);
-        return getMatches(steamId, 1).get(0);
+        return getMatches(steamId, 1).stream()
+                .map(matchHistoryDetail -> matchService.getMatchById(matchHistoryDetail.getMatchId()))
+                .findFirst().orElse(null);
     }
 
     @Override
-    public List<MatchDTO> getMatches(long steamId, int matches) throws DotaSparkerException {
+    public List<SparkerMatchHistoryDetail> getMatches(long steamId, int matches) throws DotaSparkerException {
         log.info("Getting {} user matches with steamId: {}", matches, steamId);
         MatchHistory matchHistory = client.send(new MatchHistoryRequest.Builder()
                 .accountId(steamId)
@@ -45,8 +50,7 @@ public class PlayerServiceImpl implements PlayerService {
         }
         return matchHistory.getMatches()
                 .stream()
-                .map(MatchHistoryDetail -> matchService.getMatchById(MatchHistoryDetail.getMatchId()))
+                .map(convertService::convertMatchHistoryDetail)
                 .collect(Collectors.toList());
     }
-
 }

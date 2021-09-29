@@ -2,7 +2,7 @@ package dota.buff.service.impl;
 
 import com.github.wannesvr.core.model.hero.Hero;
 
-import dota.buff.model.HeroDTO;
+import dota.buff.model.dto.HeroDTO;
 import dota.buff.service.ConvertService;
 import dota.buff.service.HeroService;
 

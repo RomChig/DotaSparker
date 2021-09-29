@@ -1,6 +1,6 @@
 package dota.buff.service;
 
-import dota.buff.model.HeroDTO;
+import dota.buff.model.dto.HeroDTO;
 
 import java.util.List;
 
