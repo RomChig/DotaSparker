@@ -1,10 +1,9 @@
 import {
     BASE_URL,
-    PLAYER,
-    MATCH,
-    HERO,
+    PLAYERS,
+    MATCHES,
+    HEROES,
     ID,
-    ALL,
     SLASH,
     HERO_URL,
     HERO_BY_ID_URL,
@@ -20,7 +19,6 @@ import {
     STEAM_ID,
     PATH_TO_MAIN_PAGE,
     PATH_TO_MATCHES_PAGE,
-    HEROES
 } from './Constants'
 
 import {secondsToMinutesConverter} from './SecondsConverter'
@@ -28,11 +26,10 @@ import {calculateCurrentEntitiesViaPagePagination} from './EntityCalculator'
 
 export {
     BASE_URL,
-    PLAYER,
-    MATCH,
-    HERO,
+    PLAYERS,
+    MATCHES,
+    HEROES,
     ID,
-    ALL,
     SLASH,
     HERO_URL,
     HERO_BY_ID_URL,
@@ -48,7 +45,6 @@ export {
     STEAM_ID,
     PATH_TO_MAIN_PAGE,
     PATH_TO_MATCHES_PAGE,
-    HEROES,
     secondsToMinutesConverter,
     calculateCurrentEntitiesViaPagePagination
 }

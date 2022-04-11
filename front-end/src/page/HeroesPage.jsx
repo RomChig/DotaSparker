@@ -5,7 +5,7 @@ import {EntityPagination} from "../component";
 import {calculateCurrentEntitiesViaPagePagination} from "../util";
 
 export const HeroesPage = ({heroes}) => {
-    const [currentPage ,setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
     const [heroPerPage] = useState(7);
     const currentHeroes = calculateCurrentEntitiesViaPagePagination(heroes, currentPage);
 

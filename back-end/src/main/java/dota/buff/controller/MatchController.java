@@ -20,7 +20,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/match")
+@RequestMapping("/api/v1/matches")
 @RequiredArgsConstructor
 public class MatchController {
 
