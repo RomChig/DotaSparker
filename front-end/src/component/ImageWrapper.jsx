@@ -8,7 +8,6 @@ export const ImageWrapper = (
         className = 'p-1'
     }
 ) => {
-    console.log(width)
     return (
         <Image className={className}
                src={imagePath}

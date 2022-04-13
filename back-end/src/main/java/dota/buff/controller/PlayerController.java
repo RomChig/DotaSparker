@@ -19,12 +19,13 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1/player")
+@RequestMapping("api/v1/players")
 @RequiredArgsConstructor
 public class PlayerController {
 
     private final PlayerService playerService;
 
+    //TODO steamId put in the path variable isn't safe, should be workable another way.
     @GetMapping("/{steamId}/matches")
     public ResponseEntity<List<SparkerMatchHistoryDetail>> getAmountPlayerMatches(@PathVariable Long steamId, @RequestParam Integer amount) {
         log.info("Request for get {} matches by steamId: {}", amount, steamId);
@@ -36,5 +37,4 @@ public class PlayerController {
         log.info("Request for get last match by steamId: {}", steamId);
         return new ResponseEntity<>(playerService.getLastMatch(steamId), HttpStatus.OK);
     }
-
 }

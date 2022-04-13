@@ -17,7 +17,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1/hero")
+@RequestMapping("api/v1/heroes")
 @RequiredArgsConstructor
 public class HeroController {
 
@@ -29,10 +29,9 @@ public class HeroController {
         return new ResponseEntity<>(heroService.getHeroById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<HeroDTO>> getAllHeroes() {
         log.info("Request for get all heroes");
         return new ResponseEntity<>(heroService.getAllHeroes(), HttpStatus.OK);
     }
-
 }
