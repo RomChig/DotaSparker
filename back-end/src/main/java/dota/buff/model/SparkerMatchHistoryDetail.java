@@ -3,11 +3,12 @@ package dota.buff.model;
 import com.github.wannesvr.core.model.match.LobbyType;
 import com.github.wannesvr.core.model.match.MatchHistoryDetail;
 import com.github.wannesvr.core.model.match.MatchHistoryPlayer;
-import dota.buff.service.impl.DateConverter;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Data
@@ -30,7 +31,10 @@ public class SparkerMatchHistoryDetail {
     public SparkerMatchHistoryDetail(MatchHistoryDetail matchHistoryDetail) {
         this.matchId = matchHistoryDetail.getMatchId();
         this.matchSequenceNumber = matchHistoryDetail.getMatchSequenceNumber();
-        this.startTime = DateConverter.convert(matchHistoryDetail.getStartTime());
+        this.startTime = matchHistoryDetail.getStartTime()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime()
+                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         this.lobbyType = matchHistoryDetail.getLobbyType();
         this.radiantTeamId = matchHistoryDetail.getRadiantTeamId();
         this.direTeamId = matchHistoryDetail.getDireTeamId();

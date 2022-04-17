@@ -4,12 +4,12 @@ import com.github.wannesvr.core.Dota2ApiClient;
 import com.github.wannesvr.core.model.match.MatchDetail;
 import com.github.wannesvr.core.request.match.MatchDetailRequest;
 
+import dota.buff.converter.MatchConverter;
 import dota.buff.exception.DotaSparkerException;
 import dota.buff.model.dto.HeroDTO;
 import dota.buff.model.dto.MatchDTO;
 import dota.buff.model.dto.PlayerDTO;
 import dota.buff.model.enums.Side;
-import dota.buff.service.ConvertService;
 import dota.buff.service.MatchService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class MatchServiceImpl implements MatchService {
 
     private final Dota2ApiClient client;
-    private final ConvertService convertService;
+    private final MatchConverter matchConverter;
 
     @Override
     public MatchDTO getMatchById(long matchId) throws DotaSparkerException {
@@ -38,7 +38,7 @@ public class MatchServiceImpl implements MatchService {
                     String.format("Match was not found with matchId %d", matchId)
             );
         }
-        return convertService.convertMatch(matchDetail);
+        return matchConverter.convert(matchDetail);
     }
 
     @Override
@@ -58,6 +58,5 @@ public class MatchServiceImpl implements MatchService {
         log.info("Getting winner in match {}", match);
         return match.getSide();
     }
-
 }
 

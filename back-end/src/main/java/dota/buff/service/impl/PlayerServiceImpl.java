@@ -3,17 +3,14 @@ package dota.buff.service.impl;
 import com.github.wannesvr.core.Dota2ApiClient;
 import com.github.wannesvr.core.model.match.MatchHistory;
 import com.github.wannesvr.core.request.match.MatchHistoryRequest;
-
+import dota.buff.converter.MatchHistoryDetailConverter;
 import dota.buff.exception.DotaSparkerException;
-import dota.buff.model.dto.MatchDTO;
 import dota.buff.model.SparkerMatchHistoryDetail;
-import dota.buff.service.ConvertService;
+import dota.buff.model.dto.MatchDTO;
 import dota.buff.service.MatchService;
 import dota.buff.service.PlayerService;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +23,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     private final Dota2ApiClient client;
     private final MatchService matchService;
-    private final ConvertService convertService;
+    private final MatchHistoryDetailConverter matchHistoryDetailConverter;
 
     @Override
     public MatchDTO getLastMatch(long steamId) {
@@ -50,7 +47,7 @@ public class PlayerServiceImpl implements PlayerService {
         }
         return matchHistory.getMatches()
                 .stream()
-                .map(convertService::convertMatchHistoryDetail)
+                .map(matchHistoryDetailConverter::convert)
                 .collect(Collectors.toList());
     }
 }
