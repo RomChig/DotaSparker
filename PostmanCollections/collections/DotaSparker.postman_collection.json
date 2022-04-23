@@ -1,0 +1,231 @@
+{
+	"info": {
+		"_postman_id": "ab99d020-ce4b-43d5-aee0-d97ff7658cc7",
+		"name": "DotaSparker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Hero",
+			"item": [
+				{
+					"name": "hero",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dota_sparker_url}}/api/v1/heroes/{{heroId}}",
+							"host": [
+								"{{dota_sparker_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"heroes",
+								"{{heroId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "allHeroes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dota_sparker_url}}/api/v1/heroes",
+							"host": [
+								"{{dota_sparker_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"heroes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Match",
+			"item": [
+				{
+					"name": "match",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dota_sparker_url}}/api/v1/matches/{{matchId}}",
+							"host": [
+								"{{dota_sparker_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"matches",
+								"{{matchId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "matchPlayers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dota_sparker_url}}/api/v1/matches/players/match/{{matchId}}",
+							"host": [
+								"{{dota_sparker_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"matches",
+								"players",
+								"match",
+								"{{matchId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "matchHeroes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dota_sparker_url}}/api/v1/matches/heroes/match/{{matchId}}",
+							"host": [
+								"{{dota_sparker_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"matches",
+								"heroes",
+								"match",
+								"{{matchId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "matchWinner",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dota_sparker_url}}/api/v1/matches/winner/match/{{matchId}}",
+							"host": [
+								"{{dota_sparker_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"matches",
+								"winner",
+								"match",
+								"{{matchId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Player",
+			"item": [
+				{
+					"name": "playerMatches",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dota_sparker_url}}/api/v1/players/{{steamId}}/matches?amount=10",
+							"host": [
+								"{{dota_sparker_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"players",
+								"{{steamId}}",
+								"matches"
+							],
+							"query": [
+								{
+									"key": "amount",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "lastMatch",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{dota_sparker_url}}/api/v1/players/{{steamId}}",
+							"host": [
+								"{{dota_sparker_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"players",
+								"{{steamId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "12345",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
