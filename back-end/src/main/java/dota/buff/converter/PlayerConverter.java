@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PlayerConverter implements Converter<MatchDetailPlayer, PlayerDTO> {
 
-    private List<HeroDTO> heroList;
+    private final List<HeroDTO> heroList;
 
     @Override
     public PlayerDTO convert(MatchDetailPlayer player) {
