@@ -1,28 +1,19 @@
 package dota.buff.service.impl;
 
-import com.github.wannesvr.core.model.hero.Hero;
-
 import dota.buff.model.dto.HeroDTO;
-import dota.buff.service.ConvertService;
 import dota.buff.service.HeroService;
-
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class HeroServiceImpl implements HeroService {
 
     private final List<HeroDTO> heroList;
-
-    @Autowired
-    public HeroServiceImpl(ConvertService convertService, List<Hero> allHeroes) {
-        this.heroList = convertService.convertHeroList(allHeroes);
-    }
 
     @Override
     public HeroDTO getHeroById(int heroId) {
@@ -35,5 +26,4 @@ public class HeroServiceImpl implements HeroService {
         log.info("Getting all heroes list");
         return heroList;
     }
-
 }
